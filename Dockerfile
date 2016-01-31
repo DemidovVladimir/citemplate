@@ -19,7 +19,7 @@ RUN touch /root/.ssh/known_hosts
 
 #копируем репозиторий
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "meteor" ]
 
