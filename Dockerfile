@@ -16,9 +16,13 @@ RUN curl https://install.meteor.com/ | sh
 RUN mkdir -p /root/.ssh
 RUN mkdir -p /root/check
 
+#Создадим known_hosts
+RUN touch /root/.ssh/known_hosts
+
+#копируем репозиторий
+
 EXPOSE 8080
 
 CMD [ "meteor" ]
 
-#https://github.com/DemidovVladimir/citemplate.git
 
