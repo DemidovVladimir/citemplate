@@ -21,7 +21,7 @@ RUN touch /root/.ssh/known_hosts
 
 RUN meteor create myapp
 
-WORKDIR /root/myapp
+RUN cd ./myapp
 
 EXPOSE 3000
 
