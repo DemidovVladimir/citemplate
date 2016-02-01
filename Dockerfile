@@ -19,9 +19,12 @@ RUN touch /root/.ssh/known_hosts
 
 #копируем репозиторий
 
+RUN meteor create myapp
+RUN cd myapp
+
 EXPOSE 3000
 
-ENTRYPOINT ["sh", "meteor"]
-#CMD [ "meteor" ]
+#ENTRYPOINT ["sh", "meteor"]
+CMD [ "meteor" ]
 
 
