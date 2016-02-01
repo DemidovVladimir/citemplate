@@ -21,6 +21,8 @@ RUN touch /root/.ssh/known_hosts
 
 EXPOSE 3000
 
-CMD [ "meteor run" ]
+RUN cd simple
+
+CMD [ "meteor" ]
 
 
