@@ -1,30 +1,25 @@
-FROM ubuntu:14.04
+FROM node
+MAINTAINER Demidov Vladimir <uncojet@gmail.com>
 
-MAINTAINER Vladimir Demidov "uncojet@gmail.com"
-
-RUN update-locale LANG=C.UTF-8 LC_MESSAGES=POSIX
-
-RUN apt-get update && apt-get install -y git
-RUN apt-get -y dist-upgrade
-RUN apt-get install -y curl
-
+RUN npm cache clean -f && npm install -g n && n 0.10.30
 RUN curl https://install.meteor.com/ | sh
+RUN npm install --silent -g forever meteorite
 
-#Добавим ключ
-RUN mkdir -p /root/.ssh
-RUN mkdir -p /root/check
+ADD . ./meteorsrc
+WORKDIR /meteorsrc
 
-#Создадим known_hosts
-RUN touch /root/.ssh/known_hosts
+RUN mrt install && meteor bundle --directory /var/www/app
+WORKDIR /var/www/app
 
-#копируем репозиторий
+RUN npm install phantomjs
 
-RUN meteor create myapp
+ENV PORT 8080
+ENV ROOT_URL http://127.0.0.1
+ENV MONGO_URL mongodb://db:27017/test
 
-RUN cd ./myapp
+EXPOSE 8080
 
-EXPOSE 3000
-
-CMD [ "meteor" ]
+RUN touch .foreverignore
+CMD forever -w ./main.js
 
 
